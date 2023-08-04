@@ -1,7 +1,7 @@
 /*
-  This file is a part of MaxPV_ESP.ino - ESP8266 program that provides a web interface and a API for EcoPV 3+
+  This file is a part of ROUTEURSOLAIRE_ESP.ino - ESP8266 program that provides a web interface and a API for EcoPV 3+
   Copyright (C) 2022 - Bernard Legrand.
-  maxpv@bernard-legrand.net
+  ROUTEURSOLAIRE@bernard-legrand.net
   https://github.com/Jetblack31/
 
   This program is free software: you can redistribute it and/or modify
@@ -23,12 +23,12 @@
 // ****************************   Définitions générales   ****************************
 // ***********************************************************************************
 
-// Version MaxPV!
-#define MAXPV_VERSION      "3.57"
-#define MAXPV_VERSION_FULL "MaxPV! 3.57"
+// Version ROUTEURSOLAIRE!
+#define ROUTEURSOLAIRE_VERSION      "1.0"
+#define ROUTEURSOLAIRE_VERSION_FULL "RouteurSolaire 1.0"
 
 // SSID pour le Config Portal
-#define SSID_CP            "MaxPV"
+#define SSID_CP            "RouteurSolaire"
 
 // Communication série de débug pendant la phase initiale de démarrage
 #define SERIAL_LOG_BAUD   115200 // Vitesse de la liaison port série pour les logs de démarrage
@@ -43,13 +43,13 @@
 #define END_OF_TRANSMIT '#'    // Caractère de fin de transmission de l'Arduino
 
 // Communications TCP, ports 
-#define MAXPV_MDNS      "maxpv"         // mDNS pour accès local
-#define HTTP_PORT       80              // Port serveur web MaxPV!
+#define ROUTEURSOLAIRE_MDNS      "routeursolaire"         // mDNS pour accès local
+#define HTTP_PORT       80              // Port serveur web ROUTEURSOLAIRE!
 
-// Taille de la configuration JSON MaxPV! pour la manipulation
+// Taille de la configuration JSON ROUTEURSOLAIRE! pour la manipulation
 #define JSON_CONFIG_SIZE    1100        // en caractères
 
-// Valeurs par défaut de la configuration TCP MaxPV!
+// Valeurs par défaut de la configuration TCP ROUTEURSOLAIRE!
 #define DEFAULT_IP          "192.168.1.250"
 #define DEFAULT_GW          "192.168.1.1"
 #define DEFAULT_SN          "255.255.255.0"
@@ -60,10 +60,10 @@
                                         // connexion wifi qui active le watchdog wifi
 
 // Login et password pour le service FTP si activé
-#define LOGIN_FTP           "maxpv"
-#define PWD_FTP             "maxpv"
+#define LOGIN_FTP           "routeursolaire"
+#define PWD_FTP             "routeursolaire"
 
-#define WELCOME_MESSAGE     "MaxPV! par Bernard Legrand (2022)"
+#define WELCOME_MESSAGE     "RouteurSolaire par Olivier HARO (2023)"
 
 // NTP
 // Décalage de fuseau horaire par rapport à UTC / GMT. 0 = heure solaire française
@@ -174,31 +174,31 @@
 #define DEFAULT_MQTT_PUBLISH_PERIOD   10     // en secondes, intervalle de publication MQTT
 
 // Topics utilisés pour HomeAssistant
-#define MQTT_STATE          "maxpv/state"
-#define MQTT_V_RMS          "maxpv/vrms"
-#define MQTT_I_RMS          "maxpv/irms"
-#define MQTT_P_ACT          "maxpv/pact"
-#define MQTT_P_APP          "maxpv/papp"
-#define MQTT_P_ROUTED       "maxpv/prouted"
-#define MQTT_P_IMPULSION    "maxpv/pimpulsion"
-#define MQTT_COS_PHI        "maxpv/cosphi"
-#define MQTT_INDEX_ROUTED   "maxpv/indexrouted"
-#define MQTT_INDEX_IMPORT   "maxpv/indeximport"
-#define MQTT_INDEX_EXPORT   "maxpv/indexexport"
-#define MQTT_INDEX_IMPULSION "maxpv/indeximpulsion"
-#define MQTT_INDEX_RELAY     "maxpv/indexrelay"
-#define MQTT_TRIAC_MODE     "maxpv/triacmode"
-#define MQTT_SET_TRIAC_MODE "maxpv/triacmode/set"
-#define MQTT_RELAY_MODE     "maxpv/relaymode"
-#define MQTT_SET_RELAY_MODE "maxpv/relaymode/set"
-#define MQTT_BOOST_MODE     "maxpv/boost"
-#define MQTT_SET_BOOST_MODE "maxpv/boost/set"
-#define MQTT_STATUS_BYTE    "maxpv/statusbyte"
+#define MQTT_STATE          "ROUTEURSOLAIRE/state"
+#define MQTT_V_RMS          "ROUTEURSOLAIRE/vrms"
+#define MQTT_I_RMS          "ROUTEURSOLAIRE/irms"
+#define MQTT_P_ACT          "ROUTEURSOLAIRE/pact"
+#define MQTT_P_APP          "ROUTEURSOLAIRE/papp"
+#define MQTT_P_ROUTED       "ROUTEURSOLAIRE/prouted"
+#define MQTT_P_IMPULSION    "ROUTEURSOLAIRE/pimpulsion"
+#define MQTT_COS_PHI        "ROUTEURSOLAIRE/cosphi"
+#define MQTT_INDEX_ROUTED   "ROUTEURSOLAIRE/indexrouted"
+#define MQTT_INDEX_IMPORT   "ROUTEURSOLAIRE/indeximport"
+#define MQTT_INDEX_EXPORT   "ROUTEURSOLAIRE/indexexport"
+#define MQTT_INDEX_IMPULSION "ROUTEURSOLAIRE/indeximpulsion"
+#define MQTT_INDEX_RELAY     "ROUTEURSOLAIRE/indexrelay"
+#define MQTT_TRIAC_MODE     "ROUTEURSOLAIRE/triacmode"
+#define MQTT_SET_TRIAC_MODE "ROUTEURSOLAIRE/triacmode/set"
+#define MQTT_RELAY_MODE     "ROUTEURSOLAIRE/relaymode"
+#define MQTT_SET_RELAY_MODE "ROUTEURSOLAIRE/relaymode/set"
+#define MQTT_BOOST_MODE     "ROUTEURSOLAIRE/boost"
+#define MQTT_SET_BOOST_MODE "ROUTEURSOLAIRE/boost/set"
+#define MQTT_STATUS_BYTE    "ROUTEURSOLAIRE/statusbyte"
 
 // Topics utilisés pour la transmission des informations du système et le debug en fonctionnement
-#define MQTT_SYS_FREE_HEAP      "maxpv/SYS/freeHeap"
-#define MQTT_SYS_FRAG           "maxpv/SYS/heapFragmentation"
-#define MQTT_SYS_MAX_FREE       "maxpv/SYS/maxFreeBlockSize"
-#define MQTT_SYS_CPU_FREQ       "maxpv/SYS/cpuFrequency"
-#define MQTT_SYS_RESET_REASON   "maxpv/SYS/lastResetReason"
-#define MQTT_LOGGER             "maxpv/SYS/logger"
+#define MQTT_SYS_FREE_HEAP      "ROUTEURSOLAIRE/SYS/freeHeap"
+#define MQTT_SYS_FRAG           "ROUTEURSOLAIRE/SYS/heapFragmentation"
+#define MQTT_SYS_MAX_FREE       "ROUTEURSOLAIRE/SYS/maxFreeBlockSize"
+#define MQTT_SYS_CPU_FREQ       "ROUTEURSOLAIRE/SYS/cpuFrequency"
+#define MQTT_SYS_RESET_REASON   "ROUTEURSOLAIRE/SYS/lastResetReason"
+#define MQTT_LOGGER             "ROUTEURSOLAIRE/SYS/logger"
