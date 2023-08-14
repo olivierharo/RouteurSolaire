@@ -123,6 +123,8 @@
 //                          ***   I/O analogiques   ***
 #define voltageSensorMUX       3    // IN ANALOG   = PIN A3, lecture tension V sur ADMUX 3
 #define currentSensorMUX       0    // IN ANALOG   = PIN A0, lecture courant I sur ADMUX 0
+#define currentSensorSSRPin    17    // IN ANALOG   = PIN D17/A3, lecture courant I sur sortie SSR
+
 // ATTENTION PIN A4 et A5 incompatibles avec activation de OLED_128X64
 
 //                          ***   I/O digitales     ***
@@ -139,6 +141,8 @@
 #define ledPinStatus           6    // OUT DIGITAL = PIN D6, LED de signalisation fonctionnement / erreur
 #define ledPinRouting          7    // OUT DIGITAL = PIN D7, LED de signalisation routage de puissance
 #define relayPin               8    // OUT DIGITAL = PIN D8, commande On/Off du relais de délestage secondaire
+
+
 
 //                   **************************************************
 //                   **********   A  T  T  E  N  T  I  O  N   *********
@@ -488,6 +492,7 @@ void setup ( ) {
   pinMode      ( ledPinStatus,  OUTPUT );           // LED Statut
   pinMode      ( ledPinRouting, OUTPUT );           // LED Routage puissance
   pinMode      ( relayPin,      OUTPUT );           // Commande relais de délestage tout ou rien
+  pinMode      (currentSensorSSRPin,  INPUT  );           // Entrée de synchronisation secteur
 
   digitalWrite ( pulseTriacPin, OFF    );
   digitalWrite ( synchroOutPin, OFF    );
@@ -807,6 +812,8 @@ void loop ( ) {
     Serial.print ( stats_samples );
     Serial.print ( F(",") );
     Serial.print ( indexRelayOn );
+    Serial.print ( F(",") );
+    Serial.print ( getSensorSSR() );
     Serial.print ( F(",END#") );
 
     // *** Reset du Flag pour indiquer que les données ont été traitées   ***
@@ -854,6 +861,25 @@ void loop ( ) {
 
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////
+// getSensorSSR                                                                      //
+// récupère la valeur lue par le capteur de courant connecté en sortie de  SSR       //
+// Premier démarrage ou re-démarrage                                                 //
+///////////////////////////////////////////////////////////////////////////////////////
+float getSensorSSR( void ){
+  // capteur : ref : DL-CT10CL-1000
+  //           in  : 50A
+  //           out : 50mA
+  
+  // contient la vraie tension d'alimentation de la carte arduino (car jamais exactement vraiment 5V)
+  int analogVoltage = ADCL | ( ADCH << 8 );
+  
+  int sensorValue = analogRead(currentSensorSSRPin);
+  float voltage = sensorValue * (analogVoltage / 1023.0);
+  
+  return voltage*1000;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // startPVR                                                                          //
