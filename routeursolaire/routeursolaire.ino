@@ -647,7 +647,7 @@ void setTsTasks (void) {
 
 
 ///////////////////////////////////////////////////////////////////
-// Gestion de la configuration de ROUTEURSOLAIRE!                         //
+// Gestion de la configuration de ROUTEURSOLAIRE!                //
 // bool configRead(const String& configString)                   //
 // void configWrite(void)                                        //
 ///////////////////////////////////////////////////////////////////
